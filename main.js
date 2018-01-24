@@ -179,12 +179,13 @@ const exportCsv = () => {
 	yValues = [];
 	xValues = [];
 	const yMaxCoordinate = graphData.yMax.coordinate;
+	const yXAxisValue = graphData.yXAxis.value;
 	const clickCount = graphData.xSeriesCoordinates.length;
 	const yDenominator = - (yMaxCoordinate - graphData.yXAxis.coordinate);
-	const	yRange = parseFloat(graphData.yMax.value) - parseFloat(graphData.yXAxis.value);
+	const	yRange = parseFloat(graphData.yMax.value) - parseFloat(yXAxisValue);
 	for (let i = 0; i < clickCount; i++) {
 		let	percentMultiplier = 1 - ((graphData.ySeriesCoordinates[0][i] - yMaxCoordinate) / yDenominator);
-		yValues.push(Math.round(percentMultiplier * yRange * 10) / 10);
+		yValues.push(Math.round(percentMultiplier * yRange * 10) / 10 + yXAxisValue);
 		xValues.push(parseFloat(graphData.xInterval) * i + parseFloat(graphData.xMin));
 	}
 	console.log(xValues);
