@@ -1,0 +1,66 @@
+.wrapper {
+	display: flex;
+	flex-direction: row;
+	background-color: #F7F7F7;
+}
+
+.sidePanel {
+	width: 320px;
+}
+
+.app {
+	flex: 1;
+	display: flex;
+	justify-content: flex-start;
+	background-color: #FFFFFF;
+	padding: 16px 0px 16px 16px;
+}
+
+#appImage {
+	width: 800px;
+	height: 500px;
+	border: 2px dashed black;
+	background-image: url("./img/placeholder.gif");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: relative;
+}
+
+.formInputCorrection {
+	flex: 1;
+	margin-left: 8px;
+}
+
+.formXIntervalRadioBox {
+	display: flex;
+	flex-direction: column;
+	padding-left: 20px;
+}
+
+.buttonForm {
+	flex: 1;
+}
+
+.formClickInstructions{
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 8px;
+	font-weight: bold;
+}
+
+.horizontalLine {
+	background-color: red;
+	height: 1px;
+	width: 100%;
+	position: absolute;
+}
+
+.dot {
+	height: 24px;
+	width: 24px;
+	text-align: center;
+	vertical-align: middle;
+	position: absolute;
+}
