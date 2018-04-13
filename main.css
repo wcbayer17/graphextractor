@@ -8,10 +8,6 @@
 	width: 320px;
 }
 
-.sidePanelInactive {
-	display: none;
-}
-
 .app {
 	flex: 1;
 	display: flex;
@@ -25,8 +21,8 @@
 #appImage {
 	width: 800px;
 	height: 500px;
-	border: 2px dashed black;
-	background-image: url("./img/placeholder.gif");
+	border: 2px;
+	background-image: url("./img/placeholder.png");
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;

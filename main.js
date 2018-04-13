@@ -27,10 +27,13 @@
 	};
 
 // Document Elements
+	const accordion = document.querySelector("#accordion");
 	const sidePanelUploadButton = document.querySelector("#sidePanelUploadButton");
 	const appImage = document.querySelector("#appImage");
+	const instructionText = document.querySelector(".instructionText")
 	
 	// buttons
+	const buttonDemoGraph = document.querySelector("#buttonDemoGraph");
 	const buttonHeadingOne = document.querySelector("#headingOne button");
 	const buttonHeadingTwo = document.querySelector("#headingTwo button");
 	const buttonHeadingThree = document.querySelector("#headingThree button");
@@ -72,6 +75,19 @@
 		appImage.appendChild(dot);
 	}
 
+// Step 1 - DemoImage: Get image from user and put in object
+const getDemoImage = () => {
+	appImage.style.backgroundImage = `url("./img/graphDemoChart.png")`;
+	accordion.classList.remove("isInactive");
+	instructionText.classList.remove("isInactive");
+	buttonDemoGraph.classList.add("isInactive");
+	graphData.state.hasUploadedGraph = true;
+	clickNextStep(buttonHeadingTwo);
+}
+
+	// Event Listener for Graph Upload
+	buttonDemoGraph.addEventListener("click", getDemoImage, true);
+
 
 // Step 1: Get image from user and put in object
 const getImage = () => {
@@ -84,6 +100,9 @@ const getImage = () => {
 	if (graphData.appImageFile) {
 		graphFileReader.readAsDataURL(graphData.appImageFile);
 	} else {	}
+	accordion.classList.remove("isInactive");
+	instructionText.classList.remove("isInactive");
+	buttonDemoGraph.classList.add("isInactive");
 	graphData.state.hasUploadedGraph = true;
 	clickNextStep(buttonHeadingTwo);
 }
