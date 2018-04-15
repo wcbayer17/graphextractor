@@ -234,7 +234,8 @@ const exportCsv = () => {
   for (let i = 0; i < clickCount; i++) {
     let percentMultiplier = 1 - ((graphData.ySeriesCoordinates[0][i] - yMaxCoordinate) / yDenominator);
     yValues.push(Math.round(percentMultiplier * yRange * 10) / 10 + yXAxisValue);
-    xValues.push(parseFloat(graphData.xInterval) * i + parseFloat(graphData.xMin));
+    xValues.push(i + 1);
+    // xValues.push(parseFloat(graphData.xInterval) * i + parseFloat(graphData.xMin));
     console.log(Math.round(percentMultiplier * yRange * 10) / 10);
     console.log(yXAxisValue);
   }
