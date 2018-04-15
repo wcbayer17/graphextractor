@@ -75,7 +75,7 @@
     appImage.appendChild(dot);
   }
 
-// Copy and Paste Graph Listener
+// Step 1 - Copy and Paste Graph Listener
 // source: https://stackoverflow.com/questions/6333814/how-does-the-paste-image-from-clipboard-functionality-work-in-gmail-and-google-c
 const pasteGraph = () => {
   const items = (event.clipboardData || event.originalEvent.clipboardData).items;
@@ -96,8 +96,8 @@ const pasteGraph = () => {
     clickNextStep(buttonHeadingTwo);
   }
 }
-  // Event Listener for Graph Paste
-  document.addEventListener("paste", pasteGraph, true);
+// Event Listener for Graph Paste
+document.addEventListener("paste", pasteGraph);
 
 // Step 1 - DemoImage: Get image from user and put in object
 const getDemoImage = () => {
@@ -109,8 +109,8 @@ const getDemoImage = () => {
   clickNextStep(buttonHeadingTwo);
 }
 
-  // Event Listener for Graph Upload
-  buttonDemoGraph.addEventListener("click", getDemoImage, true);
+// Event Listener for Graph Upload
+buttonDemoGraph.addEventListener("click", getDemoImage);
 
 
 // Step 1: Get image from user and put in object
@@ -129,10 +129,15 @@ const getImage = () => {
   buttonDemoGraph.classList.add("isInactive");
   graphData.state.hasUploadedGraph = true;
   clickNextStep(buttonHeadingTwo);
+  appImage.removeEventListener("click", onClickAppImage);
 }
 
-  // Event Listener for Graph Upload
-  sidePanelUploadButton.addEventListener("change", getImage, true);
+// Event Listener for Graph Upload
+sidePanelUploadButton.addEventListener("change", getImage);
+const onClickAppImage = () => {
+  sidePanelUploadButton.click();
+}
+appImage.addEventListener("click", onClickAppImage);
 
 
 // Step 2: Get X data from user and put in object
