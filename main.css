@@ -1,7 +1,7 @@
 .wrapper {
 	display: flex;
 	flex-direction: row;
-	background-color: #F7F7F7;
+	background-color: #FFFFFF;
 }
 
 .sidePanel {
@@ -12,11 +12,9 @@
 	flex: 1;
 	display: flex;
 	flex-direction: column;
-	background-color: lightgrey;
 }
 
 #appImageWrapper {
-	background-color: lightblue;
 	position: relative;
 	display: flex;
 	margin: 16px 0px 0px 16px;
@@ -26,12 +24,38 @@
 	width: 700px;
 	height: 500px;
 	border: 2px;
-	background-color: pink;
 	background-image: url("./img/placeholder.png");
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center top;
 	position: relative;
+}
+
+#appImageAnnotationsWrapper {
+	flex-direction: column;
+	position: relative;
+	display: flex;
+	flex: 1;
+}
+
+.annotationBox {
+	display: flex;
+	flex-direction: column;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+.annotationBoxRow {
+	display: flex;
+	flex-direction: row;
+}
+.annotationBoxRow form {
+	margin: 0px;
+}
+
+.formRowCorrection {
+	display: flex;
+	flex-direction: row;
 }
 
 .formInputCorrection {

@@ -77,20 +77,10 @@
 			    </div>
 			    <div id="collapseThree" class="collapse" aria-labelledby="headingDefineYRange" data-parent="#accordion">
 			      <div class="card-body">
-			        <!-- Max Y Value Form -->
-			      	<form>
-
-			      		<!-- Max Y Value -->
-							  <div class="form-group row">
-							    <label for="step3SetMaxYValue" class=" col-form-label">Max Y Value:</label>
-							      <input type="number" class="form-control formInputCorrection" id="step3SetMaxYValue" placeholder="e.g. 300" disabled>
-							  </div>
-							  
-							  <!-- Next Step Button -->
-							  <div class="form-group row">
-							      <button type="submit" class="btn btn-primary buttonForm" id="buttonSubmitSetMaxY" disabled>Next Step</button>
-							  </div>
-							</form>
+						  <!-- Next Step Button -->
+						  <div class="form-group row">
+						      <button type="submit" class="btn btn-primary buttonForm" id="buttonSubmitSetMaxY" disabled>Next Step</button>
+						  </div>
 						</div>
 			    </div>
 			  </div> <!-- End Step 3 -->
@@ -109,20 +99,10 @@
 			        <div class="formClickInstructions">
 			        	Click X Axis
 			        </div>
-			        <!-- Click X Axis Form -->
-			      	<form>
-
-			      		<!-- Set Y Value -->
-							  <div class="form-group row">
-							    <label for="step4SetYValue" class=" col-form-label">Set Y Value:</label>
-							    <input type="number" class="form-control formInputCorrection" id="step4SetYValue" placeholder="e.g. 300" disabled>
-							  </div>
-							  
 							  <!-- Next Step Button -->
 							  <div class="form-group row">
 							      <button type="submit" class="btn btn-primary buttonForm" id="buttonSubmitSetYXAxis" disabled>Next Step</button>
 							  </div>
-							</form>
 						</div>
 			    </div>
 			  </div>  <!-- End Step 4 -->
@@ -163,6 +143,40 @@
 				</div>
 				<div id="appImageWrapper">
 					<div id="appImage">
+					</div>
+					<div id="appImageAnnotationsWrapper">
+						<div class="annotationBox" id="annotationBoxYMax">
+							<div class="annotationBoxRow">
+								<span>Drag to Chart Max Y</span>
+								<span>(?)</span>
+							</div>
+							<div class="annotationBoxRow">
+								<!-- Max Y Value Form -->
+			      		<form>
+				      		<!-- Max Y Value -->
+				      		<div class="formRowCorrection">
+									    <label for="step3SetMaxYValue" class=" col-form-label">Max Y:</label>
+								      <input type="number" class="form-control formInputCorrection" id="step3SetMaxYValue" placeholder="e.g. 9800" disabled>
+						      </div>
+								</form>
+							</div>
+						</div>
+						<div class="annotationBox" id="annotationBoxYXAxis">
+							<div class="annotationBoxRow">
+								<span>Drag to Chart Min Y</span>
+								<span>(?)</span>
+							</div>
+							<div class="annotationBoxRow">
+								<!-- X Axis Form -->
+			      		<form>
+				      		<!-- Set Y Value -->
+								  <div class="formRowCorrection">
+								    <label for="step4SetYValue" class=" col-form-label">Min Y:</label>
+								    <input type="number" class="form-control formInputCorrection" id="step4SetYValue" placeholder="e.g. 9100" disabled>
+								  </div>
+							  </form>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
