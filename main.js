@@ -188,6 +188,7 @@ const dragElement = (div) => {
   const closeDragElement = () => {
     document.onmouseup = null;
     document.onmousemove = null;
+    console.log(`new y range pixels are: ${graphData.yMax.coordinate}, ${graphData.yXAxis.coordinate}`)
   }
 }
 
