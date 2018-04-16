@@ -17,7 +17,6 @@
     xSeriesCoordinates: [],
     state: {
       hasUploadedGraph: false,
-      hasSetXInterval: false,
       hasSetMaxY: false,
       hasSubmittedMaxY: false,
       hasClickedXAxis: false,
@@ -31,15 +30,14 @@
   const sidePanelUploadButton = document.querySelector("#sidePanelUploadButton");
   const appImage = document.querySelector("#appImage");
   const instructionText = document.querySelector(".instructionText")
+  let lineYMax;
+  let lineYXAxis;
   
   // buttons
   const buttonDemoGraph = document.querySelector("#buttonDemoGraph");
-  const buttonHeadingOne = document.querySelector("#headingOne button");
-  const buttonHeadingTwo = document.querySelector("#headingTwo button");
-  const buttonHeadingThree = document.querySelector("#headingThree button");
+  const buttonHeadingDefineYRange = document.querySelector("#headingDefineYRange button");
   const buttonHeadingFour = document.querySelector("#headingFour button");
   const buttonHeadingFive = document.querySelector("#headingFive button");
-  const buttonSubmitSetXInterval = document.querySelector("#buttonSubmitSetXInterval");
   const buttonSubmitSetMaxY = document.querySelector("#buttonSubmitSetMaxY");
   const buttonSubmitSetYXAxis = document.querySelector("#buttonSubmitSetYXAxis");
   const buttonCsvExport = document.querySelector("#buttonCsvExport");
@@ -58,8 +56,9 @@
 
 
   // Horizontal Line Creator
-  const createHorizontalLineDiv = (y) => {
+  const createHorizontalLineDiv = (y, id) => {
     const line = document.createElement("div");
+    line.id = id;
     line.className = "horizontalLine";
     line.style.top = y;
     appImage.appendChild(line);
@@ -75,7 +74,9 @@
     appImage.appendChild(dot);
   }
 
-// Step 1 - Copy and Paste Graph Listener
+/* Graph Upload ==================================================================== */
+
+// Copy and Paste Graph Option
 // source: https://stackoverflow.com/questions/6333814/how-does-the-paste-image-from-clipboard-functionality-work-in-gmail-and-google-c
 const pasteGraph = () => {
   const items = (event.clipboardData || event.originalEvent.clipboardData).items;
@@ -89,31 +90,23 @@ const pasteGraph = () => {
     if (graphData.appImageFile) {
       graphFileReader.readAsDataURL(graphData.appImageFile);
     }
-    accordion.classList.remove("isInactive");
-    instructionText.classList.remove("isInactive");
-    buttonDemoGraph.classList.add("isInactive");
-    graphData.state.hasUploadedGraph = true;
-    clickNextStep(buttonHeadingTwo);
+    beginStepDefineYRange();
   }
 }
 // Event Listener for Graph Paste
 document.addEventListener("paste", pasteGraph);
 
-// Step 1 - DemoImage: Get image from user and put in object
+// DemoImage Option
 const getDemoImage = () => {
   appImage.style.backgroundImage = `url("./img/graphDemoChart.png")`;
-  accordion.classList.remove("isInactive");
-  instructionText.classList.remove("isInactive");
-  buttonDemoGraph.classList.add("isInactive");
-  graphData.state.hasUploadedGraph = true;
-  clickNextStep(buttonHeadingTwo);
+  beginStepDefineYRange();
 }
 
 // Event Listener for Graph Upload
 buttonDemoGraph.addEventListener("click", getDemoImage);
 
 
-// Step 1: Get image from user and put in object
+// Upload Button Option
 const getImage = () => {
   graphData.appImageFile = sidePanelUploadButton.files[0];
   const graphFileReader = new FileReader;
@@ -124,12 +117,7 @@ const getImage = () => {
   if (graphData.appImageFile) {
     graphFileReader.readAsDataURL(graphData.appImageFile);
   }
-  accordion.classList.remove("isInactive");
-  instructionText.classList.remove("isInactive");
-  buttonDemoGraph.classList.add("isInactive");
-  graphData.state.hasUploadedGraph = true;
-  clickNextStep(buttonHeadingTwo);
-  appImage.removeEventListener("click", onClickAppImage);
+  beginStepDefineYRange();
 }
 
 // Event Listener for Graph Upload
@@ -140,32 +128,74 @@ const onClickAppImage = () => {
 appImage.addEventListener("click", onClickAppImage);
 
 
-// Step 2: Get X data from user and put in object
-const setXInterval = () => {
-  graphData.xInterval = formStep2SetXInterval.value;
-  graphData.xMin = formStep2SetMinX.value;
+/* Define Y Range ==================================================================== */
+
+// Step 2: Get Max Y data from user and put in object
+const beginStepDefineYRange = () => {
+  accordion.classList.remove("isInactive");
+  instructionText.classList.remove("isInactive");
+  buttonDemoGraph.classList.add("isInactive");
+  graphData.state.hasUploadedGraph = true;
+  clickNextStep(buttonHeadingDefineYRange);
+  appImage.removeEventListener("click", onClickAppImage);
+  instructionText.textContent = "Define the min and max Y Values";
+  createYLinesOnStart();
 }
 
-buttonSubmitSetXInterval.addEventListener("click", (event) => {
-  event.preventDefault();
-  setXInterval();
-  graphData.state.hasSetXInterval = true;
-  clickNextStep(buttonHeadingThree);
-  }
-);
+const createYLinesOnStart = () => {
+  graphData.yMax.coordinate = 32;
+  graphData.yXAxis.coordinate = 232;
+  createHorizontalLineDiv(graphData.yMax.coordinate, "lineYMax");
+  createHorizontalLineDiv(graphData.yXAxis.coordinate, "lineYXAxis");
+  lineYMax = document.querySelector("#lineYMax");
+  lineYXAxis = document.querySelector("#lineYXAxis");
+  dragElement(lineYMax);
+  dragElement(lineYXAxis);
+}
 
-// Step 3: Get Max Y data from user and put in object
-appImage.addEventListener("click", (event) => {
-  if (graphData.state.hasSetXInterval === true && graphData.state.hasSetMaxY === false) {
-    let yParameter = event.offsetY;
-    let xParameter = event.offsetX;
-    graphData.yMax.coordinate = yParameter;
-    createHorizontalLineDiv(yParameter);
-    formStep3SetMaxYValue.disabled = false;
-    buttonSubmitSetMaxY.disabled = false;
-    graphData.state.hasSetMaxY = true;
-  } else { }
-})
+// Make a div vertically draggable
+const dragElement = (div) => {
+  // pos2 is the absolute distance from top of screen, 
+  // pos1 is the last micro change from a drag event being fired (relative)
+  let pos1 = 0, pos2 = 0;
+
+  // sets pos 2 to the click y coordinates of the click and then adds event listeners for mouse moving and mouse up (end)
+  const dragMouseDown = (e) => {
+    e = e || window.event;
+    pos2 = e.clientY;
+    document.onmouseup = closeDragElement;
+    document.onmousemove = elementDrag;
+  }
+
+  // here, we actually call the dragMouseDown fxn when you click down ires the moment I press down on mouse (i.e. 1st half of a click)
+  div.onmousedown = dragMouseDown;
+
+  // onMouseMove is calling this which adjusts the position of the div, and records the data in object store
+  const elementDrag = (e) => {
+    e = e || window.event;
+    pos1 = pos2 - e.clientY;
+    pos2 = e.clientY;
+    div.style.top = (div.offsetTop - pos1) + "px";
+
+    if (div.id === "lineYMax") {
+      graphData.yMax.coordinate = graphData.yMax.coordinate - pos1;
+    } else if (div.id === "lineYXAxis") {
+      graphData.yXAxis.coordinate = graphData.yXAxis.coordinate - pos1;
+    }
+  }
+
+  // stop moving when mouse button is released:
+  const closeDragElement = () => {
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+
+  // if (graphData.state.hasSetMaxY === false) {
+  //   formStep3SetMaxYValue.disabled = false;
+  //   buttonSubmitSetMaxY.disabled = false;
+  //   graphData.state.hasSetMaxY = true;
+  // }
 
 const setMaxY = () => {
   graphData.yMax.value = formStep3SetMaxYValue.value;
@@ -259,3 +289,5 @@ buttonCsvExport.addEventListener("click", (event) => {
 appImage.addEventListener("click", (event) => {
   console.log(`${event.offsetY}, ${event.offsetX}`);
 })
+
+buttonDemoGraph.click();

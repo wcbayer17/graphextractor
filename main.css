@@ -12,20 +12,25 @@
 	flex: 1;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: flex-start;
-	background-color: #FFFFFF;
-	padding: 16px 0px 16px 16px;
+	background-color: lightgrey;
+}
+
+#appImageWrapper {
+	background-color: lightblue;
+	position: relative;
+	display: flex;
+	margin: 16px 0px 0px 16px;
 }
 
 #appImage {
-	width: 800px;
+	width: 700px;
 	height: 500px;
 	border: 2px;
+	background-color: pink;
 	background-image: url("./img/placeholder.png");
 	background-size: contain;
 	background-repeat: no-repeat;
-	background-position: center;
+	background-position: center top;
 	position: relative;
 }
 
@@ -54,7 +59,7 @@
 
 .horizontalLine {
 	background-color: red;
-	height: 1px;
+	height: 4px;
 	width: 100%;
 	position: absolute;
 }
@@ -70,11 +75,12 @@
 .wrapperChartBottom {
 	display: flex;
 	align-items: center;
-	margin: 24px;
+/*	margin: 24px;*/
 	flex-direction: column;
 }
 
 .instructionText {
+	font-size: 24;
 	font-weight: bold;
 	font-style: italic;
 	color: #EB5757;

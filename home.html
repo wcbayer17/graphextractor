@@ -42,9 +42,9 @@
 			<!-- Sidebar Navigation -->
 			<div id="accordion" class="sidePanel isInactive">
 			  
-			  <!-- Step 1 Section -->
+			  <!-- Upload Image Section -->
 			  <div class="card">
-			    <div class="card-header" id="headingOne">
+			    <div class="card-header" id="headingUploadChart">
 			      <h5 class="mb-0">
 			        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 			          Step 1: Upload Graph Screenshot
@@ -52,7 +52,7 @@
 			      </h5>
 			    </div>
 
-			    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+			    <div id="collapseOne" class="collapse show" aria-labelledby="headingUploadChart" data-parent="#accordion">
 			      <div class="card-body">
 			        
 			        <!-- Upload Screenshot Button -->
@@ -65,83 +65,18 @@
 			    </div>
 			  </div> <!-- End Step 1 -->
 			  
-			  <!-- Step 2 Section -->
+			  
+			  <!-- Define Y Range Section -->
 			  <div class="card">
-			    <div class="card-header" id="headingTwo">
+			    <div class="card-header" id="headingDefineYRange">
 			      <h5 class="mb-0">
-			        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+			        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
 			          Step 2: Define Y Range
 			        </button>
 			      </h5>
 			    </div>
-			    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+			    <div id="collapseThree" class="collapse" aria-labelledby="headingDefineYRange" data-parent="#accordion">
 			      <div class="card-body">
-			        
-			        <!-- X Parameters Form -->
-			      	<form>
-
-			      		<!-- Set X Interval Input -->
-							  <div class="form-group row">
-							    <label for="step2SetXInterval" class=" col-form-label">Set X Interval:</label>
-							      <input type="number" class="form-control formInputCorrection" id="step2SetXInterval" placeholder="e.g. 3 months">
-							  </div>
-							  
-							  <!-- Set Min X Input -->
-							  <div class="form-group row">
-							    <label for="step2SetMinX" class=" col-form-label">Set Min. X:</label>
-							      <input type="number" class="form-control formInputCorrection" id="step2SetMinX" placeholder="Usually 0">
-							  </div>
-							  
-							  <!-- Select Type Radio -->
-							 <!--  <fieldset class="form-group">
-							    <div class="row">
-							      <legend class="col-form-label pt-0">Set X Type:</legend>
-							      <div class="formXIntervalRadioBox">
-							        <div class="form-check">
-							          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-							          <label class="form-check-label" for="gridRadios1">
-							            # ($s, Quantities, etc.)
-							          </label>
-							        </div>
-							        <div class="form-check">
-							          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-							          <label class="form-check-label" for="gridRadios2">
-							            Date (e.g. Days, Months, Years)
-							          </label>
-							        </div>
-							        <div class="form-check">
-							          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3">
-							          <label class="form-check-label" for="gridRadios3">
-							            Text
-							          </label>
-							        </div>
-							      </div>
-							    </div>
-							  </fieldset> -->
-							  
-							  <!-- Next Step Button -->
-							  <div class="form-group row" id="buttonSubmitSetXInterval">
-							      <button type="submit" class="btn btn-primary buttonForm">Next Step</button>
-							  </div>
-							</form>
-						</div>
-			    </div>
-			  </div> <!-- End Step 2 -->
-			  
-			  <!-- Step 3 Section -->
-			  <div class="card">
-			    <div class="card-header" id="headingThree">
-			      <h5 class="mb-0">
-			        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-			          Step 3: Set Max Y
-			        </button>
-			      </h5>
-			    </div>
-			    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-			      <div class="card-body">
-			        <div class="formClickInstructions">
-			        	Click Max Y Value
-			        </div>
 			        <!-- Max Y Value Form -->
 			      	<form>
 
@@ -220,12 +155,14 @@
 			</div> <!-- Accordion End -->
 			
 			<div class="app">
-				<div id="appImage">
-				</div>
 				<div class="wrapperChartBottom">
 					<span class="instructionText isInactive">Placeholder</span>
 					<div>
 					<button type="submit" class="btn btn-primary buttonForm" id="buttonDemoGraph">Use Demo Graph</button>
+					</div>
+				</div>
+				<div id="appImageWrapper">
+					<div id="appImage">
 					</div>
 				</div>
 			</div>
