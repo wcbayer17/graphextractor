@@ -30,6 +30,7 @@
   const sidePanelUploadButton = document.querySelector("#sidePanelUploadButton");
   const appImage = document.querySelector("#appImage");
   const instructionText = document.querySelector(".instructionText")
+  const appImageAnnotationsWrapper = document.querySelector(".appImageAnnotationsWrapper");
   let lineYMax;
   let lineYXAxis;
   
@@ -134,12 +135,14 @@ appImage.addEventListener("click", onClickAppImage);
 const beginStepDefineYRange = () => {
   accordion.classList.remove("isInactive");
   instructionText.classList.remove("isInactive");
+  instructionText.textContent = "Define the min and max Y Values";
+  appImageAnnotationsWrapper.classList.remove("isInactive");
   buttonDemoGraph.classList.add("isInactive");
   graphData.state.hasUploadedGraph = true;
   clickNextStep(buttonHeadingDefineYRange);
   appImage.removeEventListener("click", onClickAppImage);
-  instructionText.textContent = "Define the min and max Y Values";
   createYLinesOnStart();
+
 }
 
 const createYLinesOnStart = () => {
@@ -291,4 +294,4 @@ appImage.addEventListener("click", (event) => {
   console.log(`${event.offsetY}, ${event.offsetX}`);
 })
 
-buttonDemoGraph.click();
+// buttonDemoGraph.click();

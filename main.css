@@ -17,6 +17,7 @@
 #appImageWrapper {
 	position: relative;
 	display: flex;
+	justify-content: center;
 	margin: 16px 0px 0px 16px;
 }
 
@@ -31,7 +32,7 @@
 	position: relative;
 }
 
-#appImageAnnotationsWrapper {
+.appImageAnnotationsWrapper {
 	flex-direction: column;
 	position: relative;
 	display: flex;
