@@ -18,9 +18,8 @@
     state: {
       hasUploadedGraph: false,
       hasSetMaxY: false,
-      hasSubmittedMaxY: false,
-      hasClickedXAxis: false,
-      hasSubmittedXAxis: false,
+      hasSetYXAxis: false,
+      hasSubmittedYRange: false,
       hasClickedDataPoints: false,
     }
   };
@@ -31,6 +30,8 @@
   const appImage = document.querySelector("#appImage");
   const instructionText = document.querySelector(".instructionText")
   const appImageAnnotationsWrapper = document.querySelector(".appImageAnnotationsWrapper");
+  const annotationBoxYMax = document.querySelector("#annotationBoxYMax");
+  const annotationBoxYXAxis = document.querySelector("#annotationBoxYXAxis");
   let lineYMax;
   let lineYXAxis;
   
@@ -131,7 +132,7 @@ appImage.addEventListener("click", onClickAppImage);
 
 /* Define Y Range ==================================================================== */
 
-// Step 2: Get Max Y data from user and put in object
+// Hides and reveals elements for Define Y Range Step
 const beginStepDefineYRange = () => {
   accordion.classList.remove("isInactive");
   instructionText.classList.remove("isInactive");
@@ -142,9 +143,16 @@ const beginStepDefineYRange = () => {
   clickNextStep(buttonHeadingDefineYRange);
   appImage.removeEventListener("click", onClickAppImage);
   createYLinesOnStart();
+  formStep3SetMaxYValue.addEventListener("change", () => {
+    checkFormInputs(formStep3SetMaxYValue);
+  });
+  formStep4SetYValue.addEventListener("change", () => {
+    checkFormInputs(formStep4SetYValue);
+  });
 
 }
 
+// Adds horizontal lines to chart image
 const createYLinesOnStart = () => {
   graphData.yMax.coordinate = 32;
   graphData.yXAxis.coordinate = 232;
@@ -153,10 +161,12 @@ const createYLinesOnStart = () => {
   lineYMax = document.querySelector("#lineYMax");
   lineYXAxis = document.querySelector("#lineYXAxis");
   dragElement(lineYMax);
+  dragAnnotationBox(annotationBoxYMax, graphData.yMax.coordinate);
   dragElement(lineYXAxis);
+  dragAnnotationBox(annotationBoxYXAxis, graphData.yXAxis.coordinate);
 }
 
-// Make a div vertically draggable
+// Makes horizontal line divs vertically draggable
 const dragElement = (div) => {
   // pos2 is the absolute distance from top of screen, 
   // pos1 is the last micro change from a drag event being fired (relative)
@@ -182,8 +192,10 @@ const dragElement = (div) => {
 
     if (div.id === "lineYMax") {
       graphData.yMax.coordinate = graphData.yMax.coordinate - pos1;
+      dragAnnotationBox(annotationBoxYMax, graphData.yMax.coordinate);
     } else if (div.id === "lineYXAxis") {
       graphData.yXAxis.coordinate = graphData.yXAxis.coordinate - pos1;
+      dragAnnotationBox(annotationBoxYXAxis, graphData.yXAxis.coordinate);
     }
   }
 
@@ -191,56 +203,51 @@ const dragElement = (div) => {
   const closeDragElement = () => {
     document.onmouseup = null;
     document.onmousemove = null;
-    console.log(`new y range pixels are: ${graphData.yMax.coordinate}, ${graphData.yXAxis.coordinate}`)
+    // console.log(`new y range pixels are: ${graphData.yMax.coordinate}, ${graphData.yXAxis.coordinate}`)
   }
 }
 
-  // if (graphData.state.hasSetMaxY === false) {
-  //   formStep3SetMaxYValue.disabled = false;
-  //   buttonSubmitSetMaxY.disabled = false;
-  //   graphData.state.hasSetMaxY = true;
-  // }
+// Move Annotation Boxes with horizontal line divs
 
-const setMaxY = () => {
-  graphData.yMax.value = formStep3SetMaxYValue.value;
+const dragAnnotationBox = (div, position) => {
+  div.style.top = position - (annotationBoxYMax.clientHeight / 2);
 }
+
+const checkFormInputs = (form) => {
+  const bool = (form.value !== "");
+  switch (form) {
+    case formStep3SetMaxYValue:
+      graphData.state.hasSetMaxY = bool;
+      graphData.yMax.value = formStep3SetMaxYValue.value;      
+      break;
+    case formStep4SetYValue:
+      graphData.state.hasSetYXAxis = bool;
+      graphData.yXAxis.value = formStep4SetYValue.value;
+      break;
+    default:
+      break;
+  }
+
+  if (graphData.state.hasSetMaxY && graphData.state.hasSetYXAxis) {
+    buttonSubmitSetMaxY.disabled = false;
+  } else {
+    buttonSubmitSetMaxY.disabled = true;
+  }
+}
+
 
 buttonSubmitSetMaxY.addEventListener("click", (event) => {
   event.preventDefault();
-  setMaxY();
-  clickNextStep(buttonHeadingFour);
-  graphData.state.hasSubmittedMaxY = true;
-  }
-);
-
-// Step 4: Get X Axis Y value from user and put in object
-appImage.addEventListener("click", (event) => {
-  if (graphData.state.hasSubmittedMaxY === true && graphData.state.hasClickedXAxis === false) {
-    let yParameter = event.offsetY;
-    let xParameter = event.offsetX;
-    graphData.yXAxis.coordinate = yParameter;
-    createHorizontalLineDiv(yParameter);
-    formStep4SetYValue.disabled = false;
-    buttonSubmitSetYXAxis.disabled = false;
-    graphData.state.hasClickedXAxis = true;
-  } else { }
-})
-
-const setYXAxis = () => {
-  graphData.yXAxis.value = formStep4SetYValue.value;
-}
-
-buttonSubmitSetYXAxis.addEventListener("click", (event) => {
-  event.preventDefault();
-  setYXAxis();
   clickNextStep(buttonHeadingFive);
-  graphData.state.hasSubmittedXAxis = true;
+  graphData.state.hasSubmittedYRange = true;
+  instructionText.textContent = "Click data points and export when finished";
   }
 );
+
 
 // Step 5: Get Y values of data points from user and put in object
 appImage.addEventListener("click", (event) => {
-  if (graphData.state.hasSubmittedXAxis === true && graphData.state.hasClickedDataPoints === false) {
+  if (graphData.state.hasSubmittedYRange === true && graphData.state.hasClickedDataPoints === false) {
     let yParameter = event.offsetY;
     let xParameter = event.offsetX;
     storeCoordinates(yParameter, xParameter);
@@ -293,5 +300,3 @@ buttonCsvExport.addEventListener("click", (event) => {
 appImage.addEventListener("click", (event) => {
   console.log(`${event.offsetY}, ${event.offsetX}`);
 })
-
-// buttonDemoGraph.click();

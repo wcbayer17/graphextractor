@@ -44,6 +44,7 @@
 	flex-direction: column;
 	padding-left: 8px;
 	padding-right: 8px;
+	position: absolute;
 }
 
 .annotationBoxRow {
@@ -95,7 +96,6 @@
 	text-align: center;
 	vertical-align: middle;
 	position: absolute;
-<<<<<<< HEAD
 }
 
 .wrapperChartBottom {
@@ -114,6 +114,4 @@
 
 .isInactive {
 	display: none;
-=======
->>>>>>> master
 }
