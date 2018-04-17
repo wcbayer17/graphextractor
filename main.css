@@ -1,7 +1,7 @@
 .wrapper {
 	display: flex;
 	flex-direction: row;
-	background-color: #F7F7F7;
+	background-color: #FFFFFF;
 }
 
 .sidePanel {
@@ -11,20 +11,53 @@
 .app {
 	flex: 1;
 	display: flex;
-	justify-content: flex-start;
-	background-color: #FFFFFF;
-	padding: 16px 0px 16px 16px;
+	flex-direction: column;
+}
+
+#appImageWrapper {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	margin: 16px 0px 0px 16px;
 }
 
 #appImage {
-	width: 800px;
+	width: 700px;
 	height: 500px;
-	border: 2px dashed black;
-	background-image: url("./img/placeholder.gif");
+	border: 2px;
+	background-image: url("./img/placeholder.png");
 	background-size: contain;
 	background-repeat: no-repeat;
-	background-position: center;
+	background-position: center top;
 	position: relative;
+}
+
+.appImageAnnotationsWrapper {
+	flex-direction: column;
+	position: relative;
+	display: flex;
+	flex: 1;
+}
+
+.annotationBox {
+	display: flex;
+	flex-direction: column;
+	padding-left: 8px;
+	padding-right: 8px;
+	position: absolute;
+}
+
+.annotationBoxRow {
+	display: flex;
+	flex-direction: row;
+}
+.annotationBoxRow form {
+	margin: 0px;
+}
+
+.formRowCorrection {
+	display: flex;
+	flex-direction: row;
 }
 
 .formInputCorrection {
@@ -42,6 +75,10 @@
 	flex: 1;
 }
 
+#buttonDemoGraph {
+	margin-top: 16px;
+}
+
 .formClickInstructions{
 	flex: 1;
 	display: flex;
@@ -52,7 +89,7 @@
 
 .horizontalLine {
 	background-color: red;
-	height: 1px;
+	height: 4px;
 	width: 100%;
 	position: absolute;
 }
@@ -63,4 +100,22 @@
 	text-align: center;
 	vertical-align: middle;
 	position: absolute;
+}
+
+.wrapperChartBottom {
+	display: flex;
+	align-items: center;
+/*	margin: 24px;*/
+	flex-direction: column;
+}
+
+.instructionText {
+	font-size: 24;
+	font-weight: bold;
+	font-style: italic;
+	color: #EB5757;
+}
+
+.isInactive {
+	display: none;
 }
