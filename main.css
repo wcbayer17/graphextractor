@@ -75,6 +75,10 @@
 	flex: 1;
 }
 
+#buttonDemoGraph {
+	margin-top: 16px;
+}
+
 .formClickInstructions{
 	flex: 1;
 	display: flex;
