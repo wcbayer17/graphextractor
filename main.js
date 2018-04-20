@@ -25,7 +25,7 @@
     }
   };
 
-// Document Elements
+/* Document Elements ==================================================================== */
   const accordion = document.querySelector("#accordion");
   const sidePanelUploadButton = document.querySelector("#sidePanelUploadButton");
   const appImage = document.querySelector("#appImage");
@@ -42,7 +42,6 @@
   const buttonHeadingFour = document.querySelector("#headingFour button");
   const buttonHeadingFive = document.querySelector("#headingFive button");
   const buttonSubmitSetMaxY = document.querySelector("#buttonSubmitSetMaxY");
-  const emailToExport = document.querySelector("#emailToExport");
   const buttonCsvExport = document.querySelector("#buttonCsvExport");
 
   // forms
@@ -50,8 +49,9 @@
   const formStep2SetMinX = document.querySelector("#step2SetMinX");
   const formStep3SetMaxYValue = document.querySelector("#step3SetMaxYValue");
   const formStep4SetYValue = document.querySelector("#step4SetYValue");
-  buttonCsvExport.disabled = true;
-// Utils
+  const formEmailToExport = document.querySelector("#emailToExport");  
+  
+/* Utils ==================================================================== */
   // Step Router
   const clickNextStep = (header) => {
     header.click();
@@ -273,7 +273,7 @@ const storeCoordinates = (y, x) => {
 
 // this enables exporting based on if text is an email
 const checkForEmail = () => {
-  const emailValue = emailToExport.value;
+  const emailValue = formEmailToExport.value;
   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const isEmail = re.test(String(emailValue).toLowerCase());
 
@@ -285,7 +285,7 @@ const checkForEmail = () => {
 }
 
 // email validation listener
-emailToExport.oninput = checkForEmail;
+formEmailToExport.addEventListener("input", checkForEmail);
 
 /* // Export CSV ==================================================================== */
 
@@ -319,7 +319,7 @@ const exportCsv = () => {
 const exportButtonClick = () => {
   exportCsv();
   graphData.state.hasClickedDataPoints = true;
-  graphData.userEmail = emailToExport.value;
+  graphData.userEmail = formEmailToExport.value;
 }
 
 buttonCsvExport.addEventListener("click", () => {
