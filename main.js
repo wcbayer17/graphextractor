@@ -1,4 +1,6 @@
 // Global Variables
+amplitude.getInstance().logEvent('PAGE_VISITED');
+
 
   // Need an object with keys (Y series, X series, user data - in this case the chart, graph data variables)
   const graphData = {
@@ -141,6 +143,7 @@ const beginStepDefineYRange = () => {
   appImageAnnotationsWrapper.classList.remove("isInactive");
   buttonDemoGraph.classList.add("isInactive");
   graphData.state.hasUploadedGraph = true;
+  amplitude.getInstance().logEvent('UPLOADED_GRAPH');
   clickNextStep(buttonHeadingDefineYRange);
   appImage.removeEventListener("click", onClickAppImage);
   createYLinesOnStart();
@@ -253,6 +256,7 @@ buttonSubmitSetMaxY.addEventListener("click", (event) => {
 const beginStepClickDatapoints = () => {
   instructionText.textContent = "Click data points and export when finished";
   graphData.state.hasSubmittedYRange = true;
+  amplitude.getInstance().logEvent('SUBMITTED_YRANGE');
   clickNextStep(buttonHeadingFive);
 };
 
@@ -263,6 +267,7 @@ appImage.addEventListener("click", (event) => {
     const xParameter = event.offsetX;
     storeCoordinates(yParameter, xParameter);
     createDot(yParameter, xParameter);
+    amplitude.getInstance().logEvent('POINT_CLICKED');
   }
 })
 
@@ -314,6 +319,7 @@ const exportCsv = () => {
   buttonCsvExport.href="data:attachment/csv," + encodeURIComponent(csvString);
   buttonCsvExport.target = "_blank";
   buttonCsvExport.download = "graphExtractorExport.csv";
+  amplitude.getInstance().logEvent('GRAPH_DOWNLOADED');
 }
 
 const exportButtonClick = () => {
