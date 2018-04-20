@@ -190,6 +190,7 @@ const dragElement = (div) => {
 
     console.log(pos1, div.offsetTop);
 
+    // App Image click and drag guard rail logic
     if ((div.offsetTop - pos1) > 0 && (div.offsetTop - pos1) <= appImage.clientHeight) {
       pos2 = e.clientY;
       div.style.top = div.offsetTop - pos1 + "px";
