@@ -186,15 +186,20 @@ const dragElement = (div) => {
   const elementDrag = (e) => {
     e = e || window.event;
     pos1 = pos2 - e.clientY;
-    pos2 = e.clientY;
-    div.style.top = (div.offsetTop - pos1) + "px";
 
-    if (div.id === "lineYMax") {
-      graphData.yMax.coordinate = graphData.yMax.coordinate - pos1;
-      dragAnnotationBox(annotationBoxYMax, graphData.yMax.coordinate);
-    } else if (div.id === "lineYXAxis") {
-      graphData.yXAxis.coordinate = graphData.yXAxis.coordinate - pos1;
-      dragAnnotationBox(annotationBoxYXAxis, graphData.yXAxis.coordinate);
+    console.log(pos1, div.offsetTop);
+
+    if ((div.offsetTop - pos1) > 0 && (div.offsetTop - pos1) <= appImage.clientHeight) {
+      pos2 = e.clientY;
+      div.style.top = div.offsetTop - pos1 + "px";
+
+      if (div.id === "lineYMax") {
+        graphData.yMax.coordinate = graphData.yMax.coordinate - pos1;
+        dragAnnotationBox(annotationBoxYMax, graphData.yMax.coordinate);
+      } else if (div.id === "lineYXAxis") {
+        graphData.yXAxis.coordinate = graphData.yXAxis.coordinate - pos1;
+        dragAnnotationBox(annotationBoxYXAxis, graphData.yXAxis.coordinate);
+      }
     }
   }
 
@@ -247,8 +252,8 @@ buttonSubmitSetMaxY.addEventListener("click", (event) => {
 // Step 5: Get Y values of data points from user and put in object
 appImage.addEventListener("click", (event) => {
   if (graphData.state.hasSubmittedYRange === true && graphData.state.hasClickedDataPoints === false) {
-    let yParameter = event.offsetY;
-    let xParameter = event.offsetX;
+    const yParameter = event.offsetY;
+    const xParameter = event.offsetX;
     storeCoordinates(yParameter, xParameter);
     createDot(yParameter, xParameter);
     buttonCsvExport.disabled = false;
@@ -276,8 +281,8 @@ const exportCsv = () => {
     yValues.push(Math.round(percentMultiplier * yRange * 10) / 10 + yXAxisValue);
     xValues.push(i + 1);
     // xValues.push(parseFloat(graphData.xInterval) * i + parseFloat(graphData.xMin));
-    console.log(Math.round(percentMultiplier * yRange * 10) / 10);
-    console.log(yXAxisValue);
+    // console.log(Math.round(percentMultiplier * yRange * 10) / 10);
+    // console.log(yXAxisValue);
   }
   console.log(xValues);
   console.log(yValues);
@@ -301,5 +306,5 @@ appImage.addEventListener("click", (event) => {
 })
 
 buttonDemoGraph.click();
-buttonSubmitSetMaxY.disabled = false;
-setTimeout(() => buttonSubmitSetMaxY.click(), 500);
+// buttonSubmitSetMaxY.disabled = false;
+// setTimeout(() => buttonSubmitSetMaxY.click(), 500);
