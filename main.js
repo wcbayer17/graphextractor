@@ -41,7 +41,6 @@
   const buttonHeadingFour = document.querySelector("#headingFour button");
   const buttonHeadingFive = document.querySelector("#headingFive button");
   const buttonSubmitSetMaxY = document.querySelector("#buttonSubmitSetMaxY");
-  const buttonSubmitSetYXAxis = document.querySelector("#buttonSubmitSetYXAxis");
   const buttonCsvExport = document.querySelector("#buttonCsvExport");
 
   // forms
@@ -300,3 +299,7 @@ buttonCsvExport.addEventListener("click", (event) => {
 appImage.addEventListener("click", (event) => {
   console.log(`${event.offsetY}, ${event.offsetX}`);
 })
+
+buttonDemoGraph.click();
+buttonSubmitSetMaxY.disabled = false;
+setTimeout(() => buttonSubmitSetMaxY.click(), 500);
