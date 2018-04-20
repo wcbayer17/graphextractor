@@ -1,180 +1,184 @@
 <html>
-	<head>
+  <head>
 
-		<meta charset="utf-8">
-		<title></title>
-		<!-- <link rel="shortcut icon" href="icon.ico"> -->
+    <meta charset="utf-8">
+    <title></title>
+    <!-- <link rel="shortcut icon" href="icon.ico"> -->
 
-		<!-- normalizer -->
+    <!-- normalizer -->
 
-		<!-- fonts -->
-	
-		<!-- bootstrap stuff -->
-			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">		
-		
-		<!-- custom stylesheets --> 
-		<link rel="stylesheet" href="./main.css">
+    <!-- fonts -->
+  
+    <!-- bootstrap stuff -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    
+    
+    <!-- custom stylesheets --> 
+    <link rel="stylesheet" href="./main.css">
 
-		<!-- other -->
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	</head>
+    <!-- other -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
 
-	<body>
-		<!-- NAV -->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		  <a class="navbar-brand" href="#">Graph Extractor</a>
-		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		    <span class="navbar-toggler-icon"></span>
-		  </button>
+  <body>
+    <!-- NAV -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Graph Extractor</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		    <ul class="navbar-nav mr-auto">
-		      <li class="nav-item active">
-		        <a class="nav-link" href="#">Contact <span class="sr-only">(current)</span></a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="#">About</a>
-		      </li>
-		    </ul>
-		  </div>
-		</nav>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Contact <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-		<!-- Parent Flexbox -->
-		<div class="wrapper">
+    <!-- Parent Flexbox -->
+    <div class="wrapper">
 
-			<!-- Sidebar Navigation -->
-			<div id="accordion" class="sidePanel isInactive">
-			  
-			  <!-- Upload Image Section -->
-			  <div class="card">
-			    <div class="card-header" id="headingUploadChart">
-			      <h5 class="mb-0">
-			        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-			          Step 1: Upload Graph Screenshot
-			        </button>
-			      </h5>
-			    </div>
+      <!-- Sidebar Navigation -->
+      <div id="accordion" class="sidePanel isInactive">
+        
+        <!-- Upload Image Section -->
+        <div class="card">
+          <div class="card-header" id="headingUploadChart">
+            <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Step 1: Upload Graph Screenshot
+              </button>
+            </h5>
+          </div>
 
-			    <div id="collapseOne" class="collapse show" aria-labelledby="headingUploadChart" data-parent="#accordion">
-			      <div class="card-body">
-			        
-			        <!-- Upload Screenshot Button -->
-			        <form>
-							  <div class="form-group">
-							    <input type="file" class="form-control-file" id="sidePanelUploadButton" name="background-image">
-							  </div>
-							</form>
-			      </div>
-			    </div>
-			  </div> <!-- End Step 1 -->
-			  
-			  
-			  <!-- Define Y Range Section -->
-			  <div class="card">
-			    <div class="card-header" id="headingDefineYRange">
-			      <h5 class="mb-0">
-			        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-			          Step 2: Define Y Range
-			        </button>
-			      </h5>
-			    </div>
-			    <div id="collapseThree" class="collapse" aria-labelledby="headingDefineYRange" data-parent="#accordion">
-			      <div class="card-body">
-			      	<img src="img/helpergif.gif" alt="Instructions Gif">
-						  <!-- Next Step Button -->
-						  <div class="form-group row">
-						      <button type="submit" class="btn btn-primary buttonForm" id="buttonSubmitSetMaxY" disabled>Next Step</button>
-						  </div>
-						</div>
-			    </div>
-			  </div> <!-- End Step 3 -->
-			
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingUploadChart" data-parent="#accordion">
+            <div class="card-body">
+              
+              <!-- Upload Screenshot Button -->
+              <form>
+                <div class="form-group">
+                  <input type="file" class="form-control-file" id="sidePanelUploadButton" name="background-image">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div> <!-- End Step 1 -->
+        
+        
+        <!-- Define Y Range Section -->
+        <div class="card">
+          <div class="card-header" id="headingDefineYRange">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Step 2: Define Y Range
+              </button>
+            </h5>
+          </div>
+          <div id="collapseThree" class="collapse" aria-labelledby="headingDefineYRange" data-parent="#accordion">
+            <div class="card-body">
+              <img src="img/helpergif.gif" alt="Instructions Gif">
+              <!-- Next Step Button -->
+              <div class="form-group row">
+                  <button type="submit" class="btn btn-primary buttonForm" id="buttonSubmitSetMaxY" disabled>Next Step</button>
+              </div>
+            </div>
+          </div>
+        </div> <!-- End Step 3 -->
+      
 
-			  <!-- Click Data Points & Export Section -->
-			  <div class="card">
-			    <div class="card-header" id="headingFive">
-			      <h5 class="mb-0">
-			        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-			          Step 3: Click Data Points + Export
-			        </button>
-			      </h5>
-			    </div>
-			    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
-			      <div class="card-body">
-			      	<div class="formClickInstructions">
-			        	Click All Data Points
-			        </div>
-			        	<img src="img/taphelper.gif" alt="Instructions Gif">
-							  <!-- Next Step Button -->
-							  <div class="form-group row">
-							      <a href="" id="buttonCsvExport" class="btn btn-primary buttonForm" disabled>Export to .CSV When Done	</a>
-							  </div>
-						</div>
-			    </div>
-			  </div>  <!-- End Step 5 -->
-			</div> <!-- Accordion End -->
-			
-
-
-			<div class="app">
-				<div class="wrapperChartBottom">
-					<span class="instructionText isInactive">Placeholder</span>
-					<div>
-					<button type="submit" class="btn btn-primary buttonForm" id="buttonDemoGraph">Use Demo Graph</button>
-					</div>
-
-				</div>
-				<div id="appImageWrapper">
-					<div id="appImage">
-					</div>
-					<div class="appImageAnnotationsWrapper isInactive">
-						<div class="annotationBox" id="annotationBoxYMax">
-							<div class="annotationBoxRow">
-								<span>Drag to Chart Max Y</span>
-								<span>(?)</span>
-							</div>
-							<div class="annotationBoxRow">
-								<!-- Max Y Value Form -->
-			      		<form>
-				      		<!-- Max Y Value -->
-				      		<div class="formRowCorrection">
-									    <label for="step3SetMaxYValue" class=" col-form-label">Max Y:</label>
-								      <input type="number" class="form-control formInputCorrection" id="step3SetMaxYValue" placeholder="e.g. 9800">
-						      </div>
-								</form>
-							</div>
-						</div>
-						<div class="annotationBox" id="annotationBoxYXAxis">
-							<div class="annotationBoxRow">
-								<span>Drag to Chart Min Y</span>
-								<span>(?)</span>
-							</div>
-							<div class="annotationBoxRow">
-								<!-- X Axis Form -->
-			      		<form>
-				      		<!-- Set Y Value -->
-								  <div class="formRowCorrection">
-								    <label for="step4SetYValue" class=" col-form-label">Min Y:</label>
-								    <input type="number" class="form-control formInputCorrection" id="step4SetYValue" placeholder="e.g. 9100">
-								  </div>
-							  </form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div> <!-- Wrapper End -->
+        <!-- Click Data Points & Export Section -->
+        <div class="card">
+          <div class="card-header" id="headingFive">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                Step 3: Click Data Points + Export
+              </button>
+            </h5>
+          </div>
+          <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+            <div class="card-body">
+              <div class="formClickInstructions">
+                Click All Data Points
+              </div>
+                <img src="img/taphelper.gif" alt="Instructions Gif">
+                <!-- Next Step Button -->
+                <div class="form-group row">
+                    <label for="emailToExport" class=" col-form-label">Email to export:</label>
+                    <input type="email" class="form-control formInputCorrection" id="emailToExport" placeholder="bob@washere.com">
+                </div>
+                <div class="form-group row">
+                    <a href="" id="buttonCsvExport" class="btn btn-primary buttonForm disabled"> Export to .CSV When Done</a>
+                </div>
+            </div>
+          </div>
+        </div>  <!-- End Step 5 -->
+      </div> <!-- Accordion End -->
+      
 
 
-		<!-- bootstrap scripts -->
-			<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <div class="app">
+        <div class="wrapperChartBottom">
+          <span class="instructionText isInactive">Placeholder</span>
+          <div>
+          <button type="submit" class="btn btn-primary buttonForm" id="buttonDemoGraph">Use Demo Graph</button>
+          </div>
 
-		<!-- custom scripts -->
-		<script src="./main.js"></script>
+        </div>
+        <div id="appImageWrapper">
+          <div id="appImage">
+          </div>
+          <div class="appImageAnnotationsWrapper isInactive">
+            <div class="annotationBox" id="annotationBoxYMax">
+              <div class="annotationBoxRow">
+                <span>Drag to Chart Max Y</span>
+                <span>(?)</span>
+              </div>
+              <div class="annotationBoxRow">
+                <!-- Max Y Value Form -->
+                <form>
+                  <!-- Max Y Value -->
+                  <div class="formRowCorrection">
+                      <label for="step3SetMaxYValue" class=" col-form-label">Max Y:</label>
+                      <input type="number" class="form-control formInputCorrection" id="step3SetMaxYValue" placeholder="e.g. 9800">
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="annotationBox" id="annotationBoxYXAxis">
+              <div class="annotationBoxRow">
+                <span>Drag to Chart Min Y</span>
+                <span>(?)</span>
+              </div>
+              <div class="annotationBoxRow">
+                <!-- X Axis Form -->
+                <form>
+                  <!-- Set Y Value -->
+                  <div class="formRowCorrection">
+                    <label for="step4SetYValue" class=" col-form-label">Min Y:</label>
+                    <input type="number" class="form-control formInputCorrection" id="step4SetYValue" placeholder="e.g. 9100">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- Wrapper End -->
 
 
-	</body>
+    <!-- bootstrap scripts -->
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- custom scripts -->
+    <script src="./main.js"></script>
+
+
+  </body>
 </html>

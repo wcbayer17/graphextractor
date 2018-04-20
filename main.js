@@ -3,6 +3,7 @@
   // Need an object with keys (Y series, X series, user data - in this case the chart, graph data variables)
   const graphData = {
     appImageFile: "",
+    userEmail: "",
     xInterval: 0,
     xMin: 0,
     yMax: {
@@ -24,7 +25,7 @@
     }
   };
 
-// Document Elements
+/* Document Elements ==================================================================== */
   const accordion = document.querySelector("#accordion");
   const sidePanelUploadButton = document.querySelector("#sidePanelUploadButton");
   const appImage = document.querySelector("#appImage");
@@ -48,8 +49,9 @@
   const formStep2SetMinX = document.querySelector("#step2SetMinX");
   const formStep3SetMaxYValue = document.querySelector("#step3SetMaxYValue");
   const formStep4SetYValue = document.querySelector("#step4SetYValue");
-
-// Utils
+  const formEmailToExport = document.querySelector("#emailToExport");  
+  
+/* Utils ==================================================================== */
   // Step Router
   const clickNextStep = (header) => {
     header.click();
@@ -148,7 +150,6 @@ const beginStepDefineYRange = () => {
   formStep4SetYValue.addEventListener("change", () => {
     checkFormInputs(formStep4SetYValue);
   });
-
 }
 
 // Adds horizontal lines to chart image
@@ -195,10 +196,10 @@ const dragElement = (div) => {
       div.style.top = div.offsetTop - pos1 + "px";
 
       if (div.id === "lineYMax") {
-        graphData.yMax.coordinate = graphData.yMax.coordinate - pos1;
+        graphData.yMax.coordinate -= pos1;
         dragAnnotationBox(annotationBoxYMax, graphData.yMax.coordinate);
       } else if (div.id === "lineYXAxis") {
-        graphData.yXAxis.coordinate = graphData.yXAxis.coordinate - pos1;
+        graphData.yXAxis.coordinate -= pos1;
         dragAnnotationBox(annotationBoxYXAxis, graphData.yXAxis.coordinate);
       }
     }
@@ -243,22 +244,26 @@ const checkFormInputs = (form) => {
 
 buttonSubmitSetMaxY.addEventListener("click", (event) => {
   event.preventDefault();
-  clickNextStep(buttonHeadingFive);
-  graphData.state.hasSubmittedYRange = true;
-  instructionText.textContent = "Click data points and export when finished";
+  beginStepClickDatapoints();
   }
 );
 
+/* Click datapoints ==================================================================== */
 
-// Step 5: Get Y values of data points from user and put in object
+const beginStepClickDatapoints = () => {
+  instructionText.textContent = "Click data points and export when finished";
+  graphData.state.hasSubmittedYRange = true;
+  clickNextStep(buttonHeadingFive);
+};
+
+// Get Y values of data points from user and put in object
 appImage.addEventListener("click", (event) => {
   if (graphData.state.hasSubmittedYRange === true && graphData.state.hasClickedDataPoints === false) {
     const yParameter = event.offsetY;
     const xParameter = event.offsetX;
     storeCoordinates(yParameter, xParameter);
     createDot(yParameter, xParameter);
-    buttonCsvExport.disabled = false;
-  } else { }
+  }
 })
 
 const storeCoordinates = (y, x) => {
@@ -266,12 +271,27 @@ const storeCoordinates = (y, x) => {
   graphData.xSeriesCoordinates.push(x);
 }
 
-// Export X and Y series keys to .CSV
+// this enables exporting based on if text is an email
+const checkForEmail = () => {
+  const emailValue = formEmailToExport.value;
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const isEmail = re.test(String(emailValue).toLowerCase());
 
+  if (isEmail) {
+    buttonCsvExport.classList.remove("disabled");
+  } else {
+    buttonCsvExport.classList.add("disabled");
+  }
+}
+
+// email validation listener
+formEmailToExport.addEventListener("input", checkForEmail);
+
+/* // Export CSV ==================================================================== */
 
 const exportCsv = () => {
-  yValues = [];
-  xValues = [];
+  const yValues = [];
+  const xValues = [];
   const yMaxCoordinate = graphData.yMax.coordinate;
   const yXAxisValue = parseFloat(graphData.yXAxis.value);
   const clickCount = graphData.xSeriesCoordinates.length;
@@ -296,9 +316,14 @@ const exportCsv = () => {
   buttonCsvExport.download = "graphExtractorExport.csv";
 }
 
-buttonCsvExport.addEventListener("click", (event) => {
+const exportButtonClick = () => {
   exportCsv();
   graphData.state.hasClickedDataPoints = true;
+  graphData.userEmail = formEmailToExport.value;
+}
+
+buttonCsvExport.addEventListener("click", () => {
+  exportButtonClick();
   }
 );
 
