@@ -41,14 +41,11 @@ amplitude.getInstance().logEvent('PAGE_VISITED');
   // buttons
   const buttonDemoGraph = document.querySelector("#buttonDemoGraph");
   const buttonHeadingDefineYRange = document.querySelector("#headingDefineYRange button");
-  const buttonHeadingFour = document.querySelector("#headingFour button");
   const buttonHeadingFive = document.querySelector("#headingFive button");
   const buttonSubmitSetMaxY = document.querySelector("#buttonSubmitSetMaxY");
   const buttonCsvExport = document.querySelector("#buttonCsvExport");
 
   // forms
-  const formStep2SetXInterval = document.querySelector("#step2SetXInterval");
-  const formStep2SetMinX = document.querySelector("#step2SetMinX");
   const formStep3SetMaxYValue = document.querySelector("#step3SetMaxYValue");
   const formStep4SetYValue = document.querySelector("#step4SetYValue");
   const formEmailToExport = document.querySelector("#emailToExport");  
@@ -173,7 +170,8 @@ const createYLinesOnStart = () => {
 const dragElement = (div) => {
   // pos2 is the absolute distance from top of screen, 
   // pos1 is the last micro change from a drag event being fired (relative)
-  let pos1 = 0, pos2 = 0;
+  let pos1 = 0;
+  let pos2 = 0;
 
   // sets pos 2 to the click y coordinates of the click and then adds event listeners for mouse moving and mouse up (end)
   const dragMouseDown = (e) => {
@@ -191,7 +189,7 @@ const dragElement = (div) => {
     e = e || window.event;
     pos1 = pos2 - e.clientY;
 
-    console.log(pos1, div.offsetTop);
+    //  console.log(pos1, div.offsetTop);
 
     // App Image click and drag guard rail logic
     if ((div.offsetTop - pos1) > 0 && (div.offsetTop - pos1) <= appImage.clientHeight) {
@@ -316,13 +314,23 @@ const exportCsv = () => {
   buttonCsvExport.href="data:attachment/csv," + encodeURIComponent(csvString);
   buttonCsvExport.target = "_blank";
   buttonCsvExport.download = "graphExtractorExport.csv";
-  amplitude.getInstance().logEvent('GRAPH_DOWNLOADED');
+  amplitude.getInstance().logEvent(
+    'GRAPH_DOWNLOADED',
+    {
+      'numPoints': `${clickCount}`,
+    }
+  );
 }
 
 const exportButtonClick = () => {
   exportCsv();
   graphData.state.hasClickedDataPoints = true;
   graphData.userEmail = formEmailToExport.value;
+  console.log(graphData.userEmail)
+  amplitude.getInstance().setUserId(graphData.userEmail);
+  amplitude.getInstance().setUserProperties({
+    'email': graphData.userEmail,
+  });
 }
 
 buttonCsvExport.addEventListener("click", () => {
