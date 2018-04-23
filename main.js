@@ -147,10 +147,10 @@ const beginStepDefineYRange = () => {
   clickNextStep(buttonHeadingDefineYRange);
   appImage.removeEventListener("click", onClickAppImage);
   createYLinesOnStart();
-  formStep3SetMaxYValue.addEventListener("change", () => {
+  formStep3SetMaxYValue.addEventListener("input", () => {
     checkFormInputs(formStep3SetMaxYValue);
   });
-  formStep4SetYValue.addEventListener("change", () => {
+  formStep4SetYValue.addEventListener("input", () => {
     checkFormInputs(formStep4SetYValue);
   });
 }
@@ -212,7 +212,6 @@ const dragElement = (div) => {
   const closeDragElement = () => {
     document.onmouseup = null;
     document.onmousemove = null;
-    // console.log(`new y range pixels are: ${graphData.yMax.coordinate}, ${graphData.yXAxis.coordinate}`)
   }
 }
 
@@ -307,11 +306,9 @@ const exportCsv = () => {
     yValues.push(Math.round(percentMultiplier * yRange * 10) / 10 + yXAxisValue);
     xValues.push(i + 1);
     // xValues.push(parseFloat(graphData.xInterval) * i + parseFloat(graphData.xMin));
-    // console.log(Math.round(percentMultiplier * yRange * 10) / 10);
-    // console.log(yXAxisValue);
   }
-  console.log(xValues);
-  console.log(yValues);
+  // console.log(xValues);
+  // console.log(yValues);
 
   const csvYValues = yValues.join(", ");
   const csvXValues = xValues.join(", ");
