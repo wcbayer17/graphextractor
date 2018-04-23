@@ -6,6 +6,13 @@ if (isLoggingOn) {
   }
 }
 
+// these variables are used for cookies
+const today = new Date();
+// plus 30 days
+const expiry = new Date(today.getTime() + 30 * 24 * 3600 * 1000);
+// less 24 hours
+const expired = new Date(today.getTime() - 24 * 3600 * 1000);
+
 
 // Need an object with keys (Y series, X series, user data - in this case the chart, graph data variables)
 const graphData = {
@@ -79,6 +86,29 @@ const createDot = (y, x) => {
   dot.style.top = y - 12;
   dot.style.left = x - 14;
   appImage.appendChild(dot);
+}
+
+/* +++Cookies */
+// source: https://www.the-art-of-web.com/javascript/setcookie/
+// cookies are saved in the `document` object; you can find them as document.cookie
+// the document.cookie object is basically just a giant string so setting and getting cookies is
+// about adding strings with some expiration params and searching the cookie string
+const setCookie = (name, value) => {
+  document.cookie = `${name}=${escape(value)}; path=/; expires=${expiry.toGMTString()}`;
+}
+
+const getCookie = (name) => {
+  const re = new RegExp(`${name}=([^;]+)`);
+  const value = re.exec(document.cookie);
+  const result = (value === null) 
+    ? null 
+    : unescape(value[1]);
+  
+  return result;
+}
+
+const deleteCookie = (name) => {
+  document.cookie = `${name}=null; path=/; expires=${expired.toGMTString()}`;
 }
 
 /* Graph Upload ==================================================================== */
@@ -328,9 +358,7 @@ const exportCsv = () => {
   if (isLoggingOn) {
     amplitude.getInstance().logEvent(
       'GRAPH_DOWNLOADED',
-      {
-        'numPoints': `${clickCount}`,
-      }
+      {'numPoints': `${clickCount}`}
     );
   }
 }
@@ -339,6 +367,8 @@ const exportButtonClick = () => {
   exportCsv();
   graphData.state.hasClickedDataPoints = true;
   graphData.userEmail = formEmailToExport.value;
+  setCookie('email', graphData.userEmail);
+
   if (isLoggingOn) {
     amplitude.getInstance().setUserId(graphData.userEmail);
     amplitude.getInstance().setUserProperties({'email': graphData.userEmail});
