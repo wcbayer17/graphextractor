@@ -7,79 +7,79 @@ if (isLoggingOn) {
 }
 
 
-  // Need an object with keys (Y series, X series, user data - in this case the chart, graph data variables)
-  const graphData = {
-    appImageFile: "",
-    userEmail: "",
-    xInterval: 0,
-    xMin: 0,
-    yMax: {
-      value: 0,
-      coordinate: 0,
-    },
-    yXAxis: {
-      value: 0,
-      coordinate: 0,
-    },
-    ySeriesCoordinates: [[]],
-    xSeriesCoordinates: [],
-    state: {
-      hasUploadedGraph: false,
-      hasSetMaxY: false,
-      hasSetYXAxis: false,
-      hasSubmittedYRange: false,
-      hasClickedDataPoints: false,
-    }
-  };
+// Need an object with keys (Y series, X series, user data - in this case the chart, graph data variables)
+const graphData = {
+  appImageFile: "",
+  userEmail: "",
+  xInterval: 0,
+  xMin: 0,
+  yMax: {
+    value: 0,
+    coordinate: 0,
+  },
+  yXAxis: {
+    value: 0,
+    coordinate: 0,
+  },
+  ySeriesCoordinates: [[]],
+  xSeriesCoordinates: [],
+  state: {
+    hasUploadedGraph: false,
+    hasSetMaxY: false,
+    hasSetYXAxis: false,
+    hasSubmittedYRange: false,
+    hasClickedDataPoints: false,
+  }
+};
 
 /* Document Elements ==================================================================== */
-  const accordion = document.querySelector("#accordion");
-  const sidePanelUploadButton = document.querySelector("#sidePanelUploadButton");
-  const appImage = document.querySelector("#appImage");
-  const instructionText = document.querySelector(".instructionText")
-  const appImageAnnotationsWrapper = document.querySelector(".appImageAnnotationsWrapper");
-  const annotationBoxYMax = document.querySelector("#annotationBoxYMax");
-  const annotationBoxYXAxis = document.querySelector("#annotationBoxYXAxis");
-  let lineYMax;
-  let lineYXAxis;
-  
-  // buttons
-  const buttonDemoGraph = document.querySelector("#buttonDemoGraph");
-  const buttonHeadingDefineYRange = document.querySelector("#headingDefineYRange button");
-  const buttonHeadingFive = document.querySelector("#headingFive button");
-  const buttonSubmitSetMaxY = document.querySelector("#buttonSubmitSetMaxY");
-  const buttonCsvExport = document.querySelector("#buttonCsvExport");
+const accordion = document.querySelector("#accordion");
+const sidePanelUploadButton = document.querySelector("#sidePanelUploadButton");
+const appImage = document.querySelector("#appImage");
+const instructionText = document.querySelector(".instructionText")
+const appImageAnnotationsWrapper = document.querySelector(".appImageAnnotationsWrapper");
+const annotationBoxYMax = document.querySelector("#annotationBoxYMax");
+const annotationBoxYXAxis = document.querySelector("#annotationBoxYXAxis");
+let lineYMax;
+let lineYXAxis;
 
-  // forms
-  const formStep3SetMaxYValue = document.querySelector("#step3SetMaxYValue");
-  const formStep4SetYValue = document.querySelector("#step4SetYValue");
-  const formEmailToExport = document.querySelector("#emailToExport");  
+// buttons
+const buttonDemoGraph = document.querySelector("#buttonDemoGraph");
+const buttonHeadingDefineYRange = document.querySelector("#headingDefineYRange button");
+const buttonHeadingFive = document.querySelector("#headingFive button");
+const buttonSubmitSetMaxY = document.querySelector("#buttonSubmitSetMaxY");
+const buttonCsvExport = document.querySelector("#buttonCsvExport");
+
+// forms
+const formStep3SetMaxYValue = document.querySelector("#step3SetMaxYValue");
+const formStep4SetYValue = document.querySelector("#step4SetYValue");
+const formEmailToExport = document.querySelector("#emailToExport");  
   
 /* Utils ==================================================================== */
-  // Step Router
-  const clickNextStep = (header) => {
-    header.click();
-  }
+// Step Router
+const clickNextStep = (header) => {
+  header.click();
+}
 
 
-  // Horizontal Line Creator
-  const createHorizontalLineDiv = (y, id) => {
-    const line = document.createElement("div");
-    line.id = id;
-    line.className = "horizontalLine";
-    line.style.top = y;
-    appImage.appendChild(line);
-  }
-  
-  // Dot Creator
-  const createDot = (y, x) => {
-    const dot = document.createElement("div");
-    dot.className = "dot";
-    dot.innerHTML = "&#10060";
-    dot.style.top = y - 12;
-    dot.style.left = x - 14;
-    appImage.appendChild(dot);
-  }
+// Horizontal Line Creator
+const createHorizontalLineDiv = (y, id) => {
+  const line = document.createElement("div");
+  line.id = id;
+  line.className = "horizontalLine";
+  line.style.top = y;
+  appImage.appendChild(line);
+}
+
+// Dot Creator
+const createDot = (y, x) => {
+  const dot = document.createElement("div");
+  dot.className = "dot";
+  dot.innerHTML = "&#10060";
+  dot.style.top = y - 12;
+  dot.style.left = x - 14;
+  appImage.appendChild(dot);
+}
 
 /* Graph Upload ==================================================================== */
 
