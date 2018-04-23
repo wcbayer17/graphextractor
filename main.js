@@ -1,5 +1,10 @@
 // Global Variables
-amplitude.getInstance().logEvent('PAGE_VISITED');
+const isLoggingOn = true;
+if (isLoggingOn) { 
+  if (isLoggingOn) {
+    amplitude.getInstance().logEvent('PAGE_VISITED') 
+  }
+}
 
 
   // Need an object with keys (Y series, X series, user data - in this case the chart, graph data variables)
@@ -140,7 +145,9 @@ const beginStepDefineYRange = () => {
   appImageAnnotationsWrapper.classList.remove("isInactive");
   buttonDemoGraph.classList.add("isInactive");
   graphData.state.hasUploadedGraph = true;
-  amplitude.getInstance().logEvent('UPLOADED_GRAPH');
+  if (isLoggingOn) {
+    amplitude.getInstance().logEvent('UPLOADED_GRAPH');
+  }
   clickNextStep(buttonHeadingDefineYRange);
   appImage.removeEventListener("click", onClickAppImage);
   createYLinesOnStart();
@@ -253,7 +260,9 @@ buttonSubmitSetMaxY.addEventListener("click", (event) => {
 const beginStepClickDatapoints = () => {
   instructionText.textContent = "Click data points and export when finished";
   graphData.state.hasSubmittedYRange = true;
-  amplitude.getInstance().logEvent('SUBMITTED_YRANGE');
+  if (isLoggingOn) {
+    amplitude.getInstance().logEvent('SUBMITTED_YRANGE');
+  }
   clickNextStep(buttonHeadingFive);
 };
 
@@ -264,7 +273,9 @@ appImage.addEventListener("click", (event) => {
     const xParameter = event.offsetX;
     storeCoordinates(yParameter, xParameter);
     createDot(yParameter, xParameter);
-    amplitude.getInstance().logEvent('POINT_CLICKED');
+    if (isLoggingOn) {
+      amplitude.getInstance().logEvent('POINT_CLICKED');
+    }
   }
 })
 
@@ -314,23 +325,24 @@ const exportCsv = () => {
   buttonCsvExport.href="data:attachment/csv," + encodeURIComponent(csvString);
   buttonCsvExport.target = "_blank";
   buttonCsvExport.download = "graphExtractorExport.csv";
-  amplitude.getInstance().logEvent(
-    'GRAPH_DOWNLOADED',
-    {
-      'numPoints': `${clickCount}`,
-    }
-  );
+  if (isLoggingOn) {
+    amplitude.getInstance().logEvent(
+      'GRAPH_DOWNLOADED',
+      {
+        'numPoints': `${clickCount}`,
+      }
+    );
+  }
 }
 
 const exportButtonClick = () => {
   exportCsv();
   graphData.state.hasClickedDataPoints = true;
   graphData.userEmail = formEmailToExport.value;
-  console.log(graphData.userEmail)
-  amplitude.getInstance().setUserId(graphData.userEmail);
-  amplitude.getInstance().setUserProperties({
-    'email': graphData.userEmail,
-  });
+  if (isLoggingOn) {
+    amplitude.getInstance().setUserId(graphData.userEmail);
+    amplitude.getInstance().setUserProperties({'email': graphData.userEmail});
+  }
 }
 
 buttonCsvExport.addEventListener("click", () => {
