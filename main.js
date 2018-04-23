@@ -1,5 +1,5 @@
 // Global Variables
-const isLoggingOn = true;
+const isLoggingOn = false;
 if (isLoggingOn) { 
   if (isLoggingOn) {
     amplitude.getInstance().logEvent('PAGE_VISITED') 
@@ -354,6 +354,6 @@ appImage.addEventListener("click", (event) => {
   console.log(`${event.offsetY}, ${event.offsetX}`);
 })
 
-// buttonDemoGraph.click();
-// buttonSubmitSetMaxY.disabled = false;
-// setTimeout(() => buttonSubmitSetMaxY.click(), 500);
+buttonDemoGraph.click();
+buttonSubmitSetMaxY.disabled = false;
+setTimeout(() => buttonSubmitSetMaxY.click(), 500);
