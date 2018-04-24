@@ -158,6 +158,9 @@ const pasteGraph = () => {
     if (graphData.appImageFile) {
       graphFileReader.readAsDataURL(graphData.appImageFile);
     }
+    if (isLoggingOn) {
+      amplitude.getInstance().logEvent('UPLOADED_GRAPH');
+    }
     beginStepDefineYRange();
   }
 }
@@ -167,6 +170,9 @@ document.addEventListener("paste", pasteGraph);
 // DemoImage Option
 const getDemoImage = () => {
   appImage.style.backgroundImage = `url("./img/graphDemoChart.png")`;
+  if (isLoggingOn) {
+    amplitude.getInstance().logEvent('DEMO_GRAPH');
+  }
   beginStepDefineYRange();
 }
 
@@ -184,6 +190,9 @@ const getImage = () => {
 
   if (graphData.appImageFile) {
     graphFileReader.readAsDataURL(graphData.appImageFile);
+  }
+  if (isLoggingOn) {
+    amplitude.getInstance().logEvent('UPLOADED_GRAPH');
   }
   beginStepDefineYRange();
 }
@@ -207,9 +216,6 @@ const beginStepDefineYRange = () => {
   appImageAnnotationsWrapper.classList.remove("isInactive");
   buttonDemoGraph.classList.add("isInactive");
   graphData.state.hasUploadedGraph = true;
-  if (isLoggingOn) {
-    amplitude.getInstance().logEvent('UPLOADED_GRAPH');
-  }
   clickNextStep(buttonHeadingDefineYRange);
   appImage.removeEventListener("click", onClickAppImage);
   createYLinesOnStart();
