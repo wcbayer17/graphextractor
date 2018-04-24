@@ -1,9 +1,7 @@
 // Global Variables
 const isLoggingOn = false;
 if (isLoggingOn) { 
-  if (isLoggingOn) {
-    amplitude.getInstance().logEvent('PAGE_VISITED') 
-  }
+  amplitude.getInstance().logEvent('PAGE_VISITED') 
 }
 
 // these variables are used for cookies
