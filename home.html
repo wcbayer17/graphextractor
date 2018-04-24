@@ -32,9 +32,12 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="mailto:wes@graphextractor.com,chris@graphextractor.com">Contact <span class="sr-only">(current)</span></a>
+          <li class="nav-item">
+            <a class="nav-link" href="privacy.html">Privacy</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="mailto:wes@graphextractor.com,chris@graphextractor.com">Contact</a>
+          </li>          
           <!-- <li class="nav-item">
             <a class="nav-link" href="#">About</a>
           </li> -->
@@ -180,11 +183,42 @@
 
     </div> <!-- Wrapper End -->
 
+    <!-- Success Modal -->
+    <div id="successModal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span id="buttonCloseModal">&times;</span>
+        <h1>Sucess!</h1>
+        <h6>Your data is being downloaded...</h6>
+        <a href="./home.html" class="btn btn-outline-primary" role="button" aria-pressed="true" id="buttonNewChart">Upload another chart</a>
+        
+        <p class="h4 titleShare">Save a colleague time:</p>
+        <form action="https://hyperionlabs.us18.list-manage.com/subscribe/post" method="POST" id="formShare">
+          <input type="hidden" name="u" value="f0d143ae2a0525516475df4e5">
+          <input type="hidden" name="id" value="cc907d2ba2">
+          <div class="mergeRow dojoDndItem mergeRow-email" id="mergeRow-0">
+            <div class="field-group">
+              <input type="email" placeholder="ihave@friends.com"autocapitalize="off" autocorrect="off" name="MERGE0" id="MERGE0" size="25" value="">
+            </div>
+          </div>          
+          <div class="mergeRow dojoDndItem mergeRow-text" id="mergeRow-3">
+            <div class="field-group">
+              <input type="text" name="MERGE3" id="MERGE3" size="25" value="">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary buttonForm" id="buttonShare">Share</button>
+        </form>
+
+      </div>
+
+    </div>
+
 
     <!-- bootstrap scripts -->
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <!-- custom scripts -->
     <script src="./main.js"></script>

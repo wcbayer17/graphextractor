@@ -1,5 +1,5 @@
 // Global Variables
-const isLoggingOn = false;
+const isLoggingOn = true;
 if (isLoggingOn) { 
   amplitude.getInstance().logEvent('PAGE_VISITED') 
 }
@@ -48,6 +48,7 @@ const annotationBoxYXAxis = document.querySelector("#annotationBoxYXAxis");
 const wrapperNewEmail = document.querySelector('.wrapperNewEmail');
 const wrapperExistingEmail = document.querySelector('.wrapperExistingEmail');
 const textExistingEmail = document.querySelector('.textExistingEmail');
+const successModal = document.querySelector('#successModal');
 let lineYMax;
 let lineYXAxis;
 
@@ -58,12 +59,17 @@ const buttonHeadingFive = document.querySelector("#headingFive button");
 const buttonSubmitSetMaxY = document.querySelector("#buttonSubmitSetMaxY");
 const buttonCsvExport = document.querySelector("#buttonCsvExport");
 const buttonDeleteEmail = document.querySelector('#buttonDeleteEmail');
+const buttonCloseModal = document.querySelector('#buttonCloseModal');
+const buttonShare = document.querySelector('#buttonShare');
+const buttonNewChart = document.querySelector('#buttonNewChart');
 
 // forms
 const formStep3SetMaxYValue = document.querySelector("#step3SetMaxYValue");
 const formStep4SetYValue = document.querySelector("#step4SetYValue");
 const formEmailToExport = document.querySelector("#emailToExport");  
-  
+const formShare = document.querySelector('#formShare')
+const formShareReferralEmail = document.querySelector('#MERGE3');
+
 /* Utils ==================================================================== */
 // Step Router
 const clickNextStep = (header) => {
@@ -117,6 +123,24 @@ const getCookie = (name) => {
 const deleteCookie = (name) => {
   document.cookie = `${name}=null; path=/; expires=${expired.toGMTString()}`;
 }
+
+/* +++Modal Stuff */
+const openModal = () => {
+  successModal.style.display = "block";
+}
+
+const closeModal = () => {
+  successModal.style.display = "none";
+}
+
+// event listener for the close button within the modal
+buttonCloseModal.onclick = closeModal;
+
+window.addEventListener('click', (event) => {
+  if (event.target === successModal) {
+    closeModal();
+  }
+})
 
 /* Graph Upload ==================================================================== */
 
@@ -381,8 +405,8 @@ const exportCsv = () => {
   // console.log(xValues);
   // console.log(yValues);
 
-  const csvYValues = yValues.join(", ");
-  const csvXValues = xValues.join(", ");
+  const csvYValues = `y values, ${yValues.join(", ")}`;
+  const csvXValues = `datapoint #, ${xValues.join(", ")}`;
   const csvString = [csvYValues, csvXValues].join("\r\n");
   buttonCsvExport.href="data:attachment/csv," + encodeURIComponent(csvString);
   buttonCsvExport.target = "_blank";
@@ -403,6 +427,7 @@ const exportButtonClick = () => {
     setCookie('email', graphData.userEmail);
     checkForEmailInCookies();
   }
+  openModal();
 
   if (isLoggingOn) {
     amplitude.getInstance().setUserId(graphData.userEmail);
@@ -414,6 +439,27 @@ buttonCsvExport.addEventListener("click", () => {
   exportButtonClick();
   }
 );
+
+buttonNewChart.onclick = () => {
+  if (isLoggingOn) {
+    amplitude.getInstance().logEvent('UPLOADING_ANOTHER_CHART');
+  }
+}
+
+/* Sharing ==================================================================== */
+
+const submitSharedEmail = () => {
+  formShareReferralEmail.value = graphData.userEmail;
+  if (isLoggingOn) {
+    amplitude.getInstance().logEvent('SHARED_APP');
+  }
+  formShare.submit();
+}
+
+buttonShare.onclick = (e) => {
+  e.preventDefault()
+  submitSharedEmail();
+};
 
 // buttonDemoGraph.click();
 // buttonSubmitSetMaxY.disabled = false;
