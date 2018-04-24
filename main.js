@@ -97,6 +97,8 @@ const createDot = (y, x) => {
 //    about adding strings with some expiration params and searching the cookie string.
 // •  Also, cookies don't work on file:// urls, so when testing locally must 
 //    (1) run `python -m SimpleHTTPServer` (2) navigate in browser to http://localhost:8000/ and (3) and select home.html
+//    source (file/// issue): https://stackoverflow.com/questions/20745127/why-does-document-cookie-return-an-empty-string
+//    source (running server):
 
 const setCookie = (name, value) => {
   document.cookie = `${name}=${escape(value)}; path=/; expires=${expiry.toGMTString()}`;
