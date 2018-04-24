@@ -47,6 +47,9 @@ const instructionText = document.querySelector(".instructionText")
 const appImageAnnotationsWrapper = document.querySelector(".appImageAnnotationsWrapper");
 const annotationBoxYMax = document.querySelector("#annotationBoxYMax");
 const annotationBoxYXAxis = document.querySelector("#annotationBoxYXAxis");
+const wrapperNewEmail = document.querySelector('.wrapperNewEmail');
+const wrapperExistingEmail = document.querySelector('.wrapperExistingEmail');
+const textExistingEmail = document.querySelector('.textExistingEmail');
 let lineYMax;
 let lineYXAxis;
 
@@ -56,6 +59,7 @@ const buttonHeadingDefineYRange = document.querySelector("#headingDefineYRange b
 const buttonHeadingFive = document.querySelector("#headingFive button");
 const buttonSubmitSetMaxY = document.querySelector("#buttonSubmitSetMaxY");
 const buttonCsvExport = document.querySelector("#buttonCsvExport");
+const buttonDeleteEmail = document.querySelector('#buttonDeleteEmail');
 
 // forms
 const formStep3SetMaxYValue = document.querySelector("#step3SetMaxYValue");
@@ -89,10 +93,13 @@ const createDot = (y, x) => {
 }
 
 /* +++Cookies */
-// source: https://www.the-art-of-web.com/javascript/setcookie/
-// cookies are saved in the `document` object; you can find them as document.cookie
-// the document.cookie object is basically just a giant string so setting and getting cookies is
-// about adding strings with some expiration params and searching the cookie string
+// •  source: https://www.the-art-of-web.com/javascript/setcookie/
+// •  Cookies are saved in the `document` object; you can find them as document.cookie
+// •  the document.cookie object is basically just a giant string so setting and getting cookies is
+//    about adding strings with some expiration params and searching the cookie string.
+// •  Also, cookies don't work on file:// urls, so when testing locally must 
+//    (1) run `python -m SimpleHTTPServer` (2) navigate in browser to http://localhost:8000/ and (3) and select home.html
+
 const setCookie = (name, value) => {
   document.cookie = `${name}=${escape(value)}; path=/; expires=${expiry.toGMTString()}`;
 }
@@ -169,6 +176,7 @@ appImage.addEventListener("click", onClickAppImage);
 
 // Hides and reveals elements for Define Y Range Step
 const beginStepDefineYRange = () => {
+  checkForEmailInCookies();
   accordion.classList.remove("isInactive");
   instructionText.classList.remove("isInactive");
   instructionText.textContent = "Define the min and max Y Values";
@@ -314,8 +322,34 @@ const storeCoordinates = (y, x) => {
   graphData.xSeriesCoordinates.push(x);
 }
 
+// check if document has email and bypass email input
+const checkForEmailInCookies = () => {
+  const existingEmail = getCookie('email');
+  if (existingEmail) {
+    graphData.userEmail = existingEmail;
+    wrapperNewEmail.classList.add("isInactive");
+    wrapperExistingEmail.classList.remove("isInactive");
+    textExistingEmail.textContent = existingEmail;
+    buttonCsvExport.classList.remove("disabled");
+  } else {
+    graphData.userEmail = '';
+    wrapperNewEmail.classList.remove("isInactive");
+    wrapperExistingEmail.classList.add("isInactive");
+    textExistingEmail.textContent = null;
+    buttonCsvExport.classList.add("disabled");
+  }
+}
+
+// if the email delete button is clicked, empty cookie and reset classes
+const deleteEmail = () => {
+  deleteCookie('email');
+  checkForEmailInCookies();
+}
+
+buttonDeleteEmail.onclick = deleteEmail;
+
 // this enables exporting based on if text is an email
-const checkForEmail = () => {
+const checkIfInputIsEmail = () => {
   const emailValue = formEmailToExport.value;
   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const isEmail = re.test(String(emailValue).toLowerCase());
@@ -328,7 +362,7 @@ const checkForEmail = () => {
 }
 
 // email validation listener
-formEmailToExport.addEventListener("input", checkForEmail);
+formEmailToExport.addEventListener("input", checkIfInputIsEmail);
 
 /* // Export CSV ==================================================================== */
 
@@ -366,8 +400,11 @@ const exportCsv = () => {
 const exportButtonClick = () => {
   exportCsv();
   graphData.state.hasClickedDataPoints = true;
-  graphData.userEmail = formEmailToExport.value;
-  setCookie('email', graphData.userEmail);
+  if (!graphData.userEmail) {
+    graphData.userEmail = formEmailToExport.value;
+    setCookie('email', graphData.userEmail);
+    checkForEmailInCookies();
+  }
 
   if (isLoggingOn) {
     amplitude.getInstance().setUserId(graphData.userEmail);

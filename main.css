@@ -135,10 +135,9 @@ img {
 .wrapperExistingEmail, .wrapperNewEmail {
 	display: flex;
 	width: 100%;
-}
-.wrapperExistingEmail {
 	margin-top: 8px;
 }
+
 .wrapperExistingEmail svg {
 	margin: 0px 8px;
 }
