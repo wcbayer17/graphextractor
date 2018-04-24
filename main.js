@@ -234,8 +234,6 @@ const dragElement = (div) => {
     e = e || window.event;
     pos1 = pos2 - e.clientY;
 
-    //  console.log(pos1, div.offsetTop);
-
     // App Image click and drag guard rail logic
     if ((div.offsetTop - pos1) > 0 && (div.offsetTop - pos1) <= appImage.clientHeight) {
       pos2 = e.clientY;
@@ -416,10 +414,6 @@ buttonCsvExport.addEventListener("click", () => {
   exportButtonClick();
   }
 );
-
-appImage.addEventListener("click", (event) => {
-  console.log(`${event.offsetY}, ${event.offsetX}`);
-})
 
 // buttonDemoGraph.click();
 // buttonSubmitSetMaxY.disabled = false;
