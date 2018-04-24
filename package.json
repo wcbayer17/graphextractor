@@ -1,0 +1,19 @@
+{
+  "name": "graphextractor",
+  "version": "1.0",
+  "description": "Extract data from charts",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wcbayer17/graphextractor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wcbayer17/graphextractor/issues"
+  },
+  "homepage": "https://github.com/wcbayer17/graphextractor#readme"
+}
