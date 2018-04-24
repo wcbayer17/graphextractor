@@ -421,6 +421,6 @@ appImage.addEventListener("click", (event) => {
   console.log(`${event.offsetY}, ${event.offsetX}`);
 })
 
-buttonDemoGraph.click();
-buttonSubmitSetMaxY.disabled = false;
-setTimeout(() => buttonSubmitSetMaxY.click(), 500);
+// buttonDemoGraph.click();
+// buttonSubmitSetMaxY.disabled = false;
+// setTimeout(() => buttonSubmitSetMaxY.click(), 500);
