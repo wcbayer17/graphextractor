@@ -1,5 +1,5 @@
 // Global Variables
-const isLoggingOn = false;
+const isLoggingOn = true;
 if (isLoggingOn) { 
   amplitude.getInstance().logEvent('PAGE_VISITED') 
 }
@@ -60,12 +60,16 @@ const buttonSubmitSetMaxY = document.querySelector("#buttonSubmitSetMaxY");
 const buttonCsvExport = document.querySelector("#buttonCsvExport");
 const buttonDeleteEmail = document.querySelector('#buttonDeleteEmail');
 const buttonCloseModal = document.querySelector('#buttonCloseModal');
+const buttonShare = document.querySelector('#buttonShare');
+const buttonNewChart = document.querySelector('#buttonNewChart');
 
 // forms
 const formStep3SetMaxYValue = document.querySelector("#step3SetMaxYValue");
 const formStep4SetYValue = document.querySelector("#step4SetYValue");
 const formEmailToExport = document.querySelector("#emailToExport");  
-  
+const formShare = document.querySelector('#formShare')
+const formShareReferralEmail = document.querySelector('#MERGE3');
+
 /* Utils ==================================================================== */
 // Step Router
 const clickNextStep = (header) => {
@@ -403,8 +407,8 @@ const exportCsv = () => {
   // console.log(xValues);
   // console.log(yValues);
 
-  const csvYValues = yValues.join(", ");
-  const csvXValues = xValues.join(", ");
+  const csvYValues = `y values, ${yValues.join(", ")}`;
+  const csvXValues = `datapoint #, ${xValues.join(", ")}`;
   const csvString = [csvYValues, csvXValues].join("\r\n");
   buttonCsvExport.href="data:attachment/csv," + encodeURIComponent(csvString);
   buttonCsvExport.target = "_blank";
@@ -441,6 +445,28 @@ buttonCsvExport.addEventListener("click", () => {
 appImage.addEventListener("click", (event) => {
   console.log(`${event.offsetY}, ${event.offsetX}`);
 })
+
+buttonNewChart.onclick = () => {
+  if (isLoggingOn) {
+    amplitude.getInstance().logEvent('UPLOADING_ANOTHER_CHART');
+  }
+}
+
+/* Sharing ==================================================================== */
+
+const submitSharedEmail = () => {
+  formShareReferralEmail.value = graphData.userEmail;
+  if (isLoggingOn) {
+    amplitude.getInstance().logEvent('SHARED_APP');
+  }
+  formShare.submit();
+}
+
+buttonShare.onclick = (e) => {
+  e.preventDefault()
+  submitSharedEmail();
+};
+
 
 // buttonDemoGraph.click();
 // buttonSubmitSetMaxY.disabled = false;

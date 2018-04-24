@@ -184,8 +184,22 @@ img {
     cursor: pointer;
 }
 
+/* sharing */
+
+#formShare {
+  text-align: center;
+}
+
+.titleShare {
+  margin-top: 60px;
+}
+
+#buttonShare {
+  margin-top: 8px;
+}
 
 /* toggles -- must come at end of stylesheet */
-.isInactive {
+
+.isInactive, #mergeRow-3 {
 	display: none;
 }
