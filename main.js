@@ -50,6 +50,7 @@ const annotationBoxYXAxis = document.querySelector("#annotationBoxYXAxis");
 const wrapperNewEmail = document.querySelector('.wrapperNewEmail');
 const wrapperExistingEmail = document.querySelector('.wrapperExistingEmail');
 const textExistingEmail = document.querySelector('.textExistingEmail');
+const successModal = document.querySelector('#successModal');
 let lineYMax;
 let lineYXAxis;
 
@@ -60,6 +61,7 @@ const buttonHeadingFive = document.querySelector("#headingFive button");
 const buttonSubmitSetMaxY = document.querySelector("#buttonSubmitSetMaxY");
 const buttonCsvExport = document.querySelector("#buttonCsvExport");
 const buttonDeleteEmail = document.querySelector('#buttonDeleteEmail');
+const buttonCloseModal = document.querySelector('#buttonCloseModal');
 
 // forms
 const formStep3SetMaxYValue = document.querySelector("#step3SetMaxYValue");
@@ -117,6 +119,24 @@ const getCookie = (name) => {
 const deleteCookie = (name) => {
   document.cookie = `${name}=null; path=/; expires=${expired.toGMTString()}`;
 }
+
+/* +++Modal Stuff */
+const openModal = () => {
+  successModal.style.display = "block";
+}
+
+const closeModal = () => {
+  successModal.style.display = "none";
+}
+
+// event listener for the close button within the modal
+buttonCloseModal.onclick = closeModal;
+
+window.addEventListener('click', (event) => {
+  if (event.target === successModal) {
+    closeModal();
+  }
+})
 
 /* Graph Upload ==================================================================== */
 
@@ -405,6 +425,7 @@ const exportButtonClick = () => {
     setCookie('email', graphData.userEmail);
     checkForEmailInCookies();
   }
+  openModal();
 
   if (isLoggingOn) {
     amplitude.getInstance().setUserId(graphData.userEmail);
