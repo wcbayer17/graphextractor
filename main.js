@@ -4,6 +4,7 @@ if (isLoggingOn) {
   amplitude.getInstance().logEvent('PAGE_VISITED') 
 }
 
+
 // these variables are used for cookies
 const today = new Date();
 // plus 30 days
@@ -49,6 +50,9 @@ const wrapperNewEmail = document.querySelector('.wrapperNewEmail');
 const wrapperExistingEmail = document.querySelector('.wrapperExistingEmail');
 const textExistingEmail = document.querySelector('.textExistingEmail');
 const successModal = document.querySelector('#successModal');
+const privacyLink = document.querySelector('#privacyLink')
+const contactLink = document.querySelector('#contactLink')
+const aboutLink = document.querySelector('#aboutLink')
 let lineYMax;
 let lineYXAxis;
 
@@ -71,6 +75,26 @@ const formShare = document.querySelector('#formShare')
 const formShareReferralEmail = document.querySelector('#MERGE3');
 
 /* Utils ==================================================================== */
+// Click Trackers
+
+privacyLink.addEventListener('click', () => {
+  if (isLoggingOn) {
+    amplitude.getInstance().logEvent('CLICKED_PRIVACY');
+  }
+})
+
+contactLink.addEventListener('click', () => {
+  if (isLoggingOn) {
+    amplitude.getInstance().logEvent('CLICKED_CONTACT');
+  }
+})
+
+aboutLink.addEventListener('click', () => {
+  if (isLoggingOn) {
+    amplitude.getInstance().logEvent('CLICKED_ABOUT');
+  }
+})
+
 // Step Router
 const clickNextStep = (header) => {
   header.click();
